@@ -1,8 +1,12 @@
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useAuth } from '@hooks/useAuth';
+import LoginError from './LoginError';
 
 export default function LoginPage() {
+  const [open, setOpen] = useState(false);
+  const cancelButtonRef = useRef(null);
+
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const auth = useAuth();
@@ -12,9 +16,14 @@ export default function LoginPage() {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    auth.signIn(email, password).then(() => {
-      console.log('Login success!');
-    });
+    auth
+      .signIn(email, password)
+      .then(() => {
+        console.log('Login success!');
+      })
+      .catch((err) => {
+        setOpen(true);
+      });
   };
 
   return (
@@ -89,6 +98,7 @@ export default function LoginPage() {
           </form>
         </div>
       </div>
+      {open && <LoginError open={open} setOpen={setOpen} cancelButtonRef={cancelButtonRef} />}
     </>
   );
 }
