@@ -1,9 +1,10 @@
 import { useRef } from 'react';
-import { addProduct } from '@services/api/product';
+import { addProduct, updateProduct } from '@services/api/product';
+import { useRouter } from 'next/router';
 
 export default function FormProduct({ setOpen, setAlert, product }) {
   const formRef = useRef(null);
-  console.log('🚀 ~ file: FormProduct.js ~ line 5 ~ FormProduct ~ product', product);
+  const router = useRouter();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,26 +17,32 @@ export default function FormProduct({ setOpen, setAlert, product }) {
       categoryId: parseInt(formData.get('category')),
       images: [formData.get('images').name],
     };
-    console.log(data);
-    addProduct(data)
-      .then(() => {
-        setAlert({
-          active: true,
-          message: 'Product added successfully',
-          type: 'success',
-          autoClose: false,
-        });
-        setOpen(false);
-      })
-      .catch((error) => {
-        setAlert({
-          active: true,
-          message: error.message,
-          type: 'error',
-          autoClose: false,
-        });
-        setOpen(false);
+
+    if (product) {
+      updateProduct(product.id, data).then(() => {
+        router.push('/dashboard/products/');
       });
+    } else {
+      addProduct(data)
+        .then(() => {
+          setAlert({
+            active: true,
+            message: 'Product added successfully',
+            type: 'success',
+            autoClose: false,
+          });
+          setOpen(false);
+        })
+        .catch((error) => {
+          setAlert({
+            active: true,
+            message: error.message,
+            type: 'error',
+            autoClose: false,
+          });
+          setOpen(false);
+        });
+    }
   };
 
   return (
@@ -75,7 +82,7 @@ export default function FormProduct({ setOpen, setAlert, product }) {
               <select
                 id="category"
                 name="category"
-                defaultValue={handleCategory(product?.category?.name)}
+                defaultValue={product?.category?.name}
                 autoComplete="category-name"
                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
