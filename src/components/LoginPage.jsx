@@ -100,7 +100,7 @@ export default function LoginPage() {
           </form>
         </div>
       </div>
-      {open && <LoginError open={open} setOpen={setOpen} cancelButtonRef={cancelButtonRef} />}
+      <LoginError open={open} setOpen={setOpen} cancelButtonRef={cancelButtonRef} />
     </>
   );
 }
