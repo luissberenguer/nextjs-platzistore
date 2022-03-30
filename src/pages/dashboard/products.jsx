@@ -1,6 +1,7 @@
-import { Fragment, useState } from 'react';
-import { PlusIcon, Transition, Dialog } from '@heroicons/react/solid';
+import { useState } from 'react';
+import { PlusIcon } from '@heroicons/react/solid';
 import Modal from '@common/Modal';
+import FormProduct from '@components/FormProduct';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -91,9 +92,7 @@ export default function Products() {
         </div>
       </div>
       <Modal open={open} setOpen={setOpen}>
-        <div className="mt-2">
-          <p className="text-sm text-gray-500">Sigue los siguientes pasos para añadir un producto</p>
-        </div>
+        <FormProduct />
       </Modal>
     </>
   );
