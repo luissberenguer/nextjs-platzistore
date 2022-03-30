@@ -5,21 +5,18 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 export const Chart = ({ chartData }) => {
   return (
-    <>
-      <Bar
-        data={charData}
-        options={
-            title: {
-                display: true,
-                text: 'Categories'
-                fontSize: 20
-            },
-            legend: {
-                display: true,
-                posistion: right
-            }
-        }
-      />
-    </>
+    <Bar
+      data={chartData}
+      options={{
+        responsive: true,
+        title: {
+          display: true,
+          text: 'Category',
+        },
+        legend: {
+          position: 'top',
+        },
+      }}
+    />
   );
 };
