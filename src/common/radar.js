@@ -3,18 +3,23 @@ import { Radar } from 'react-chartjs-2';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
+const options = {
+  responsive: true,
+  elements: {
+    line: {
+      borderWidth: 3,
+    },
+  },
+  scales: {
+    r: {
+      beginAtZero: true,
+      angleLines: {
+        display: false,
+      },
+    },
+  },
+};
+
 export function RadarChart({ radarData }) {
-  return (
-    <Radar
-      data={radarData}
-      options={{
-        responsive: true,
-        elements: {
-          line: {
-            borderWidth: 3,
-          },
-        },
-      }}
-    />
-  );
+  return <Radar data={radarData} options={options} />;
 }

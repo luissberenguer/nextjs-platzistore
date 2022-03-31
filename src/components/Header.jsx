@@ -13,7 +13,8 @@ const userDataExample = {
 const navigation = [
   { name: 'Dashboard', href: '/dashboard/', current: true },
   { name: 'Productos', href: '/dashboard/products/', current: false },
-  { name: 'Ventas', href: '/ventas', current: false },
+  { name: 'Radar', href: '/charts/radar/', current: false },
+  { name: 'Line', href: '/charts/line/', current: false },
 ];
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
